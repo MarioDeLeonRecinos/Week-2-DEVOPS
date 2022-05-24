@@ -2,24 +2,31 @@
 
 # Script for the change of file names from a directory from upper to lower or vice versa
 
+prepareFile() {
+    FILE="$(basename "${entry}")"
+    extension="${FILE##*.}"
+    FILE="${FILE%.*}"
+}
+
 auto_flip_lower_upper() {
     #Logic for the character flip in file name to upper from lower or lower to upper
-    if [[ $FILE =~ ^[[:upper:]]+$ ]]; then
+    cleanName=${FILE//[^[:alpha:]]/}
+    if [[ $cleanName =~ ^[[:upper:]]+$ ]]; then
         newName=$(echo $FILE | tr '[:upper:]' '[:lower:]')
-    elif [[ $FILE =~ ^[[:lower:]]+$ ]]; then
+    elif [[ $cleanName =~ ^[[:lower:]]+$ ]]; then
         newName=$(echo $FILE | tr '[:lower:]' '[:upper:]')
     else
-        newName=$(echo $FILE | tr '[:lower:]' '[:upper:]')
+        newName=$(echo $FILE | tr '[:upper:]' '[:lower:]')
     fi
 }
 
 rename() {
     if [ -f "${DIR}/${FILE}" ]; then
-        echo "$FILE exists Rename here"
-        echo "${newName}"
-        #mv "${DIR}/${FILE}" "${DIR}/$newName"
-    else
-        echo 'file  does not exist'
+        mv "${DIR}/${FILE}" "${DIR}/$newName"
+    elif [ -f "${DIR}/${FILE}.${extension}" ]; then
+        mv "${DIR}/${FILE}.${extension}" "${DIR}/$newName.${extension}"
+    elif [ -d "${DIR}/${FILE}" ]; then
+        $(./script_1 -d "${DIR}/${FILE}")
     fi
 }
 
@@ -27,8 +34,9 @@ script_main() {
     DIR=$directory
     FILE=
     newName=
+    extension=
     for entry in "$DIR"/*; do
-        FILE="$(basename "${entry}")"
+        prepareFile
         auto_flip_lower_upper
         rename
     done
