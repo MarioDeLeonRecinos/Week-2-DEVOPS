@@ -10,11 +10,11 @@ To run tests, run the following command
 
 For the first script the usage is the following 
 ```bash
-  ./script-1 -d directory
+  ./script_1 -d directory
 ```
 Or if you want to see all options 
 ```bash
-  ./script-1 -h
+  ./script_1 -h
 ```
 
 ## Backups script
@@ -23,11 +23,13 @@ To run tests, run the following command
 
 For the first script the usage is the following 
 ```bash
-  ./script-1 -d directory
+  ./script_2 -d directory
+  service cron status
+  sudo service cron start
 ```
 Or if you want to see all options 
 ```bash
-  ./script-1 -h
+  ./script_2 -h
 ```
 
 ## NGINX Users script
@@ -36,9 +38,9 @@ To run tests, run the following command
 
 For the first script the usage is the following 
 ```bash
-  ./script-1 -d directory
+  ./script_3 -d directory
 ```
 Or if you want to see all options 
 ```bash
-  ./script-1 -h
+  ./script_3 -h
 ```
