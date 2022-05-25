@@ -2,14 +2,15 @@
 
 # Script for the change of file names from a directory from upper to lower or vice versa
 
+#
 prepareFile() {
     FILE="$(basename "${entry}")"
     extension="${FILE##*.}"
     FILE="${FILE%.*}"
 }
 
+#Logic for the character flip in file name to upper from lower or lower to upper
 auto_flip_lower_upper() {
-    #Logic for the character flip in file name to upper from lower or lower to upper
     cleanName=${FILE//[^[:alpha:]]/}
     if [[ $cleanName =~ ^[[:upper:]]+$ ]]; then
         newName=$(echo $FILE | tr '[:upper:]' '[:lower:]')
@@ -20,6 +21,7 @@ auto_flip_lower_upper() {
     fi
 }
 
+#verification of file name for rename comand or directory for recursive call 
 rename() {
     if [ -f "${DIR}/${FILE}" ]; then
         mv "${DIR}/${FILE}" "${DIR}/$newName"
@@ -30,6 +32,7 @@ rename() {
     fi
 }
 
+#logic for the script_1 and the respective function call needed
 script_main() {
     DIR=$directory
     FILE=
@@ -42,6 +45,7 @@ script_main() {
     done
 }
 
+#usage of the command with the corresponding options or arguments
 usage() {
     echo "usage: script_1 [[[-d directory ] [-i]] | [-h]]"
 }
