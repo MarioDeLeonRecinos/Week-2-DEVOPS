@@ -1,8 +1,11 @@
 #!/bin/bash
 
-# Script for the change of file names from a directory from upper to lower or vice versa
+# Script for the backup of files from a directory with the date format yyyy-mm-dd hh:ss:mm in the destination /tmp/backup_script2
+
+#File name and directory with the txt saved for the names of the files to backup
 filename="/tmp/backup_script2/prueba.txt"
 
+#script used to make the backup automatic when there is a cron call
 script_main_automatic() {
     DESTINATION="/tmp/backup_script2"    
     while read line; do
@@ -14,6 +17,7 @@ script_main_automatic() {
     done <$filename
 }
 
+#script for the adition of a new file name to backup
 script_main_add_file_backup(){
     echo -en "${directory}\n" >> $filename
 }
@@ -75,10 +79,12 @@ if [ "$interactive" = "1" ]; then
     fi
 fi
 
+#Validation of the script to call for the automatic process of the backup
 if [ "$automatic" = "0" ]; then
     script_main_automatic
 elif [ "$automatic" = "1" ]; then
     script_main_add_file_backup
 fi
 
+#example use for the addition of the cron task in crontab -e
 #43 16 * * * /home/mario/github/Week-2-DEVOPS/script_2 > /dev/null 2>&1

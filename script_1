@@ -2,7 +2,7 @@
 
 # Script for the change of file names from a directory from upper to lower or vice versa
 
-#
+#Divides the files in its components
 prepareFile() {
     FILE="$(basename "${entry}")"
     extension="${FILE##*.}"
